@@ -61,16 +61,13 @@ class BST(BinaryTree):
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
-        if node.left:
-            if value > node.left.value:
-                return BST._is_bst_satisfied(node.left, node.left.value)
-            else:
-                return False
+        right_valid = True
+        left_valid = True
         if node.right:
-            if value < node.right.value:
-                return BST._is_bst_satisfied(node.right, node.right.value)
-            else:
-                return False
+            right_valid = node.value < node.right.value and BST._is_bst_satisfied(node.right) 
+        if node.left:
+            left_valid = node.value > node.left.value and BST._is_bst_satisfied(node.left)
+        return left_valid and right_valid
 
 
     def insert(self, value):
@@ -91,12 +88,12 @@ class BST(BinaryTree):
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
-        if data < node.value:
+        if value < node.value:
             if node.left is None:
                 node.left = Node(value)
             else:
                 BST._insert(value, node.left)
-        elif data > node.value:
+        elif value > node.value:
             if node.right is None:
                 node.right=Node(value)
             else:
@@ -112,8 +109,8 @@ class BST(BinaryTree):
         FIXME:
         Implement this function.
         '''
-        for e in xs:
-            self.insert(e)
+        for i in xs:
+            self.insert(i)
 
 
     def __contains__(self, value):
@@ -143,7 +140,7 @@ class BST(BinaryTree):
             return BST._find(value, node.right)
         elif value < node.value and node.left:
             return BST._find(value, node.left)
-        if value == node.data:
+        if value == node.value:
             return True
 
 
