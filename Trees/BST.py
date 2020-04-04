@@ -54,7 +54,7 @@ class BST(BinaryTree):
         return True
 
     @staticmethod
-    def _is_bst_satisfied(node, value):
+    def _is_bst_satisfied(node):
         '''
         FIXME:
         Implement this method.
