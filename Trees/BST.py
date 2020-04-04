@@ -21,7 +21,7 @@ class BST(BinaryTree):
         '''
         self.root=None
         if xs:
-            self.intert_list(xs)
+            self.insert_list(xs)
 
 
     def __repr__(self):
@@ -50,7 +50,7 @@ class BST(BinaryTree):
         are actually working.
         '''
         if self.root:
-            return BST._is_bst_satisfied(self.root, self.root.value)
+            return BST._is_bst_satisfied(self.root)
         return True
 
     @staticmethod
@@ -212,18 +212,18 @@ class BST(BinaryTree):
     def _remove(node, value):
         if not node:
             return node
-        if node.value<value:
-            node.right=BST._remove(node.right,value)
-        elif node.value>value:
+        if node.value>value:
             node.left=BST._remove(node.left,value)
+        elif node.value<value:
+            node.right=BST._remove(node.right,value)
         else:
+            if not node.right:
+                return node.left
             if not node.left:
                 return node.right
-            elif not node.right:
-                return node.left
             nodval=node.right
             while nodval.left:
-                nodval=node.right.left
+                nodval=nodval.left
             node.value=nodval.value
             node.right=BST._remove(node.right,node.value)
         return node
