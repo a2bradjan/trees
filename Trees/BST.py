@@ -142,8 +142,8 @@ class BST(BinaryTree):
         if value > node.value and node.right:
             return BST._find(value, node.right)
         elif value < node.value and node.left:
-            return BST._find(value, node.left):
-        if value = node.data:
+            return BST._find(value, node.left)
+        if value == node.data:
             return True
 
 
@@ -212,7 +212,7 @@ class BST(BinaryTree):
         self.root = BST._remove(self.root,value)
 
     @staticmethod
-    def _remove(node, value)
+    def _remove(node, value):
         if not node:
             return node
         if node.value<value:
