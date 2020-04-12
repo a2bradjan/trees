@@ -6,7 +6,7 @@ The functions in this file are considerably harder than the functions in the Bin
 from Trees.BinaryTree import BinaryTree, Node
 from Trees.BST import BST
 
-class AVLTree():
+class AVLTree(BST):
     '''
     FIXME:
     AVLTree is currently not a subclass of BST.
@@ -52,11 +52,9 @@ class AVLTree():
         FIXME:
         Implement this function.
         '''
-        balance = balance_factor(self)
-        if balance is -1 or 0 or 1:
+        if node is None:
             return True
-        else:
-            return False
+        return AVLTree._is_avl_satisfied(node.right) and AVLTree._is_avl_satisfied(node.left) and AVLTree._balance_factor(node) in [-1, 0, 1]
 
 
     @staticmethod
@@ -64,19 +62,26 @@ class AVLTree():
         '''
         FIXME:
         Implement this function.
-
         The lecture videos provide a high-level overview of tree rotations,
         and the textbook provides full python code.
         The textbook's class hierarchy for their AVL tree code is fairly different from our class hierarchy,
         however, so you will have to adapt their code.
         '''
-        A = self.node 
-        B = self.node.right.node 
-        T = B.left.node 
-        
-        self.node = B 
-        B.left.node = A 
-        A.right.node = T 
+        if node is None:
+            return node
+        if node.right is None:
+            return node
+
+        newroot = Node(node.right.value)
+        newroot.right = node.right.right
+
+        left = Node(node.value)
+        left.left = node.left
+        left.right = node.right.left
+
+        newroot.left = left
+
+        return newroot
 
 
     @staticmethod
@@ -84,31 +89,35 @@ class AVLTree():
         '''
         FIXME:
         Implement this function.
-
         The lecture videos provide a high-level overview of tree rotations,
         and the textbook provides full python code.
         The textbook's class hierarchy for their AVL tree code is fairly different from our class hierarchy,
         however, so you will have to adapt their code.
         '''
-        A = self.node
-        B = self.node.left.node
-        T = B.right.node
+        if node is None:
+            return node
+        if node.left is None:
+            return node
 
-        self.node = B
-        B.right.node = A
-        A.left.node = T
+        newroot = Node(node.left.value)
+        newroot.left = node.left.left
 
+        right = Node(node.value)
+        right.right = node.right
+        right.left = node.left.right
+
+        newroot.right = right
+
+        return newroot
 
     def insert(self, value):
         '''
         FIXME:
         Implement this function.
-
         The lecture videos provide a high-level overview of how to insert into an AVL tree,
         and the textbook provides full python code.
         The textbook's class hierarchy for their AVL tree code is fairly different from our class hierarchy,
         however, so you will have to adapt their code.
-
         HINT:
         It is okay to add @staticmethod helper functions for this code.
         The code should look very similar to the code for your insert function for the BST,
@@ -129,24 +138,24 @@ class AVLTree():
         self.rebalance()
 
     def rebalance(self):
-        '''
+        ''' 
         Rebalance a particular (sub)tree
-        '''
+        ''' 
         # key inserted. Let's check if we're balanced
         self.update_heights(False)
         self.update_balances(False)
-        while self.balance < -1 or self.balance > 1:
+        while self.balance < -1 or self.balance > 1: 
             if self.balance > 1:
-                if self.node.left.balance < 0:
+                if self.node.left.balance < 0:  
                     self.node.left.lrotate() # we're in case II
                     self.update_heights()
                     self.update_balances()
                 self.rrotate()
                 self.update_heights()
                 self.update_balances()
-
+                
             if self.balance < -1:
-                if self.node.right.balance > 0:
+                if self.node.right.balance > 0:  
                     self.node.right.rrotate() # we're in case III
                     self.update_heights()
                     self.update_balances()
@@ -155,26 +164,26 @@ class AVLTree():
                 self.update_balances()
 
     def update_heights(self, recurse=True):
-        if not self.node == None:
-            if recurse:
-                if self.node.left != None:
+        if not self.node == None: 
+            if recurse: 
+                if self.node.left != None: 
                     self.node.left.update_heights()
                 if self.node.right != None:
                     self.node.right.update_heights()
-
+            
             self.height = max(self.node.left.height,
-                              self.node.right.height) + 1
-        else:
-            self.height = -1
-
+                              self.node.right.height) + 1 
+        else: 
+            self.height = -1 
+            
     def update_balances(self, recurse=True):
-        if not self.node == None:
-            if recurse:
-                if self.node.left != None:
+        if not self.node == None: 
+            if recurse: 
+                if self.node.left != None: 
                     self.node.left.update_balances()
                 if self.node.right != None:
                     self.node.right.update_balances()
 
-            self.balance = self.node.left.height - self.node.right.height
-        else:
-            self.balance = 0
+            self.balance = self.node.left.height - self.node.right.height 
+        else: 
+            self.balance = 0 
