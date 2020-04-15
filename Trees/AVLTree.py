@@ -21,7 +21,11 @@ class AVLTree(BST):
         '''
         self.root=None
         if xs:
-            self.insert(xs)
+            self.insert_list(xs)
+
+    def insert_list(self, xs):
+        for item in xs:
+            self.insert(item)
 
 
     def balance_factor(self):
