@@ -21,11 +21,7 @@ class AVLTree(BST):
         '''
         self.root=None
         if xs:
-            self.insert_list(xs)
-
-    def insert_list(self, xs):
-        for item in xs:
-            self.insert(item)
+            self.insert(xs)
 
 
     def balance_factor(self):
@@ -127,19 +123,7 @@ class AVLTree(BST):
         The code should look very similar to the code for your insert function for the BST,
         but it will also call the left and right rebalancing functions.
         '''
-        # Create new node
-        n = Node(value)
-
-        if self.node == None:
-            self.node = n
-            self.node.left = AVLTree()
-            self.node.right = AVLTree()
-        elif value < self.node.value:
-            self.node.left.insert(value)
-        elif value > self.node.key:
-            self.node.right.insert(value)
-
-        self.rebalance()
+        gsfdfdfassfdfdsfdsfa
 
     def rebalance(self):
         ''' 
@@ -151,19 +135,19 @@ class AVLTree(BST):
         while self.balance < -1 or self.balance > 1: 
             if self.balance > 1:
                 if self.node.left.balance < 0:  
-                    self.node.left.lrotate() # we're in case II
+                    self.node.left._left_rotate() # we're in case II
                     self.update_heights()
                     self.update_balances()
-                self.rrotate()
+                self._right_rotate()
                 self.update_heights()
                 self.update_balances()
                 
             if self.balance < -1:
                 if self.node.right.balance > 0:  
-                    self.node.right.rrotate() # we're in case III
+                    self.node.right._right_rotate() # we're in case III
                     self.update_heights()
                     self.update_balances()
-                self.lrotate()
+                self._left_rotate()
                 self.update_heights()
                 self.update_balances()
 
@@ -175,10 +159,10 @@ class AVLTree(BST):
                 if self.node.right != None:
                     self.node.right.update_heights()
             
-            self.height = max(self.node.left.height,
-                              self.node.right.height) + 1 
+            self._height = max(self.node.left._height,
+                              self.node.right._height) + 1 
         else: 
-            self.height = -1 
+            self._height = -1 
             
     def update_balances(self, recurse=True):
         if not self.node == None: 
