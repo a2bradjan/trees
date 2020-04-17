@@ -52,15 +52,9 @@ class AVLTree(BST):
         FIXME:
         Implement this function.
         '''
-        if AVLTree.balance_factor(node) not in [-1, 0, 1]:
-            return False
-        if node:
-            if node.right and node.left:
-                return AVLTree._is_avl_satisfied(node.right) and AVLTree._avl_satisfied(node.left)
-            if node.right and node.left is None:
-                return AVLTree._is_avl_satisfied(node.right)
-            if node.left and node.right is None:
-                return AVLTree._is_avl_satisfied(node.left)
+        if node is None:
+            return True
+        return AVLTree._balance_factor(node) in [-1,0,1] and AVLTree._is_avl_satisfied(node.left) and AVLTree._is_avl_satisfied(node.right)
 
 
     @staticmethod
