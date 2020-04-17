@@ -21,7 +21,7 @@ class AVLTree(BST):
         '''
         self.root=None
         if xs:
-            self.insert(xs)
+            self.insert_list(xs)
 
 
     def balance_factor(self):
@@ -140,8 +140,8 @@ class AVLTree(BST):
                 node.right = Node(value)
             else:
                 AVLTree._insert(value, node.right)
-        if AVLTree._is_avl_satisfied(node) is not False:
-            return AVLTree.rebalance(node,value)
+        if AVLTree._is_avl_satisfied(node) == False:
+            return AVLTree.rebalance()
     
     def insert_list(self, xs):
         for i in xs:
