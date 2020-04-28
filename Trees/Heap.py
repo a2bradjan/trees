@@ -163,7 +163,7 @@ class Heap(BinaryTree):
         if node is None:
             return
         elif node.right:
-            node.rigjt=Heap._remove(node.right)
+            node.right=Heap._remove(node.right)
         elif node.left:
             node.left=Heap._remove(node.left)
         else:
