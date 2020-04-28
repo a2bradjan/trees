@@ -206,45 +206,31 @@ class Heap(BinaryTree):
         elif node.left:
             return Heap._right_node(node.left)
 
-    def trickle_up(node, value):
+    @staticmethod
+    def _trickle_up(node, value):
         '''
         FIXME:
         Implement this function.
         '''
-        leaf = node
-        if len(binsize) == 2:
-            if binsize[-1] == '0':
-                if node.value > node.left.value:
-                    Heap.swap(node, node.left)
-            else:
-                if node.value > node.right.value:
-                    Heap.swap(node, node.right)
-        else:
-            stack = []
-            for digit in binsize[1:-1]:
-                if digit == '0':
-                    stack.append(node.left)
-                    node = node.left
-                if digit == '1':
-                    stack.append(node.right)
-                    node = node.right
-            while len(stack) > 0:
-                node = stack.pop()
-                stack.append(node)
-                if node.value > node.left.value:
-                    stack.pop()
-                    Heap.swap(node, node.left)
-                    stack.append(node)
-                elif node.right and node.value > node.right.value:
-                    stack.pop()
-                    Heap.swap(node, node.right)
-                    stack.append(node)
-                else:
-                    stack.pop()
-        if startnode.left and startnode.value > startnode.left.value:
-            Heap.swap(startnode, startnode.left)
-        elif startnode.right and startnode.value > startnode.right.value:
-            Heap.swap(startnode, startnode.right)
+        if Heap._is_heap_satisfied(node) == True: 
+            return node
+        if node.left and node.left.value > node.value:
+            node.left = Heap._trickle_up(node.left, value)
+        if node.right and node.right.value > node.value:
+            node.right = Heap._trickle_up(node.right, value)
+        if node.left: 
+            if node.left.value == value: 
+                np = node.left.value
+                nlc = node.value
+                node.value = np
+                node.left.value = nlc
+        if node.right:
+            if node.right.value == value: 
+                np = node.right.value
+                nrc = node.value
+                node.value = np
+                node.right.value = nrc
+        return node
 
     @staticmethod
     def _trickle_down(node):
