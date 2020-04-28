@@ -18,8 +18,8 @@ class Heap(BinaryTree):
         then each element of xs needs to be inserted into the Heap.
         '''
         super().__init__()
-        if i in xs:
-            self.insert(i)
+        if xs:
+            self.insert_list(xs)
 
 
     def __repr__(self):
