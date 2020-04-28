@@ -17,6 +17,7 @@ class Heap(BinaryTree):
         If xs is a list (i.e. xs is not None),
         then each element of xs needs to be inserted into the Heap.
         '''
+        super().__init__()
         if xs:
             self.insert_list(xs)
 
@@ -105,29 +106,24 @@ class Heap(BinaryTree):
         FIXME:
         Implement this function.
         '''
+        if node is None:
+            return
+        if node.right and node.left:
+            node.left=Heap._insert(node.left,value)
+            if node.value>node.left.value:
+                return Heap._trickle_up(node,value)
         if node.left is None:
-            vnode=Node(valuue)
-            node.left=vnode
+            node.left=Node(value)
+            if node.value>node.left.value:
+                return Heap._trickle_up(node,value)
         elif node.right is None:
-            vnode=Node(value)
-            node.right=vnode
-        else:
-            rnode=Heap.size(node.right)
-            lnode=Heap.size(node.left)
-            if left<=right:
-                vnode=node.left
-            else:
-                vnode=node.right
-            vnode=Heap._insert(value,vnode)
-
-        if vnode.value<node.value:
-            newvalue=vnode.value
-            vnode.value=node.value
-            node.value=newvalue
+            node.right=Node(value)
+            if node.value>node.right.value:
+                return Heap._trickle_up(node,value)
         return node
 
 
-    def insert_list(self, xs):
+    def insert_list(self, ixs):
         '''
         Given a list xs, insert each element of xs into self.
         FIXME:
