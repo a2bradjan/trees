@@ -159,13 +159,13 @@ class Heap(BinaryTree):
             return node.value
 
     @staticmethod
-    def _delete_this(node):
+    def _remove(node):
         if node is None:
             return
         elif node.left:
-            node.left=Heap._delete_this(node.left)
+            node.left=Heap._remove(node.left)
         elif node.right:
-            node.right=Heap._delete_this(node.right)
+            node.right=Heap._remove(node.right)
         else:
             if node.left is None and node.right is None:
                 return None
