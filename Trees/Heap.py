@@ -97,11 +97,11 @@ class Heap(BinaryTree):
             self.root = Node(value)
             self.root.descendents = 1
         else:
-            Heap._insert(value, self.root)
+            self.root = Heap._insert(self.root,value)
 
 
     @staticmethod
-    def _insert(value, node):
+    def _insert(node,value):
         '''
         FIXME:
         Implement this function.
@@ -123,7 +123,7 @@ class Heap(BinaryTree):
         return node
 
 
-    def insert_list(self, ixs):
+    def insert_list(self, xs):
         '''
         Given a list xs, insert each element of xs into self.
         FIXME:
