@@ -58,7 +58,7 @@ class Heap(BinaryTree):
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
-        if node is None
+        if node is None:
             return True
         if node.left is None and node.right is None:
             return True
