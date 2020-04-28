@@ -58,16 +58,19 @@ class Heap(BinaryTree):
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
-        if node is None:
-            return True
-        if node.left is None and node.right is None:
-            return True
-        elif node.right is None:
-            return node.value <= node.left.value
-        elif node.value <= node.right.value and node.value <= node.left.value:
-            return Heap._is_heap_satisfied(node.right) and Heap._is_heap_satisfied(node.left)
-        else:
-            return False
+        l_satisfy=True
+        r_satisfy=True
+        if node.right:
+            if node.value>node.right.value:
+                return False
+            else:
+                r_satisfy=Heap._is_heap_satisfied(node.right)
+        if node.left:
+            if node.value>node.left.value:
+                return False
+            else:
+                ls_satisfy=Heap._is_heap_satisfied(node.left)
+        return r_satisfy and l_satisfy
 
     def size(self):
         'returns size of tree'
